@@ -1,3 +1,11 @@
+const sanitizeString = (str) => {
+    return str.replace(/\\/g, '\\\\')   
+              .replace(/'/g, "\\'")     
+              .replace(/"/g, '\\"')     
+              .replace(/\n/g, '\\n')    
+              .replace(/\r/g, '\\r');   
+};
+
 const sendMessage = async () => {
     const userInput = document.getElementById('user-input').value;
     const sanitizedUserInput = sanitizeString(userInput);
