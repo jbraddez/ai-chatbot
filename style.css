@@ -224,3 +224,25 @@ button:hover {
     }
 }
 
+@media screen and (max-height: 461px) {
+    .container{
+        height: max-content;
+        max-height: 100svh;
+        position: absolute;
+        top: 0;
+    }
+    body{
+        overflow: scroll;
+    }
+    div,p,textarea{
+        font-size: smaller;
+        margin: 3px;
+        padding: 1px;
+        min-height: 0;
+    }
+    h1{
+        font-size: smaller;
+        position: relative;
+        margin-bottom: 3px;
+    }
+}
