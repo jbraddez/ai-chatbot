@@ -182,3 +182,68 @@ button:hover {
     0% { transform: translate(-2px, -2px); }
     100% { transform: translate(2px, 2px); }
 }
+
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    #chat-box {
+        font-size: 16px;
+    }
+
+    textarea {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    #char-count {
+        font-size: 10px;
+    }
+
+    .message {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+
+    #chat-box {
+        font-size: 14px;
+    }
+
+    textarea {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    #char-count {
+        font-size: 8px;
+    }
+
+    .message {
+        font-size: 12px;
+    }
+}
