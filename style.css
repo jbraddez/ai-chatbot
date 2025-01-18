@@ -186,8 +186,10 @@ button:hover {
 
 @media (max-width: 768px) {
     .container {
-        width: 90%;
-        padding: 15px;
+        width: 100%;
+        padding: 10px;
+        max-height: 60vh; /* Reduces height for smaller screens */
+        font-size: 14px; /* Adjust font size */
     }
 
     h1 {
@@ -195,16 +197,18 @@ button:hover {
     }
 
     #chat-box {
-        font-size: 16px;
+        font-size: 14px;
+        padding: 8px;
     }
 
     textarea {
         font-size: 14px;
+        padding: 8px;
     }
 
     button {
+        padding: 8px 15px;
         font-size: 14px;
-        padding: 8px 16px;
     }
 
     #char-count {
@@ -214,12 +218,17 @@ button:hover {
     .message {
         font-size: 14px;
     }
+
+    .user-message, .ai-message {
+        font-size: 14px;
+    }
 }
 
 @media (max-width: 480px) {
     .container {
-        width: 95%;
-        padding: 10px;
+        width: 100%;
+        padding: 5px;
+        max-height: 50vh; /* Further reduce height */
     }
 
     h1 {
@@ -227,16 +236,18 @@ button:hover {
     }
 
     #chat-box {
-        font-size: 14px;
+        font-size: 12px;
+        padding: 6px;
     }
 
     textarea {
         font-size: 12px;
+        padding: 6px;
     }
 
     button {
-        font-size: 12px;
         padding: 6px 12px;
+        font-size: 12px;
     }
 
     #char-count {
@@ -244,6 +255,10 @@ button:hover {
     }
 
     .message {
+        font-size: 12px;
+    }
+
+    .user-message, .ai-message {
         font-size: 12px;
     }
 }
