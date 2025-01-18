@@ -235,7 +235,7 @@ button:hover {
     body{
         overflow: scroll;
     }
-    div,p,textarea{
+    div:not(#chat-box),p,textarea{
         font-size: smaller;
         margin: 3px;
         padding: 1px;
