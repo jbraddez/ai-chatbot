@@ -82,6 +82,7 @@ textarea {
     height: auto;  
     overflow-y: hidden;
     line-height: 1.5;
+    outline: none;
 }
 
 
@@ -244,5 +245,8 @@ button:hover {
         font-size: smaller;
         position: relative;
         margin-bottom: 3px;
+    }
+    textarea{
+        padding: 3px;
     }
 }
