@@ -188,8 +188,8 @@ button:hover {
     .container {
         width: 100%;
         padding: 10px;
-        max-height: 60vh; /* Reduces height for smaller screens */
-        font-size: 14px; /* Adjust font size */
+        max-height: 60vh;
+        font-size: 14px; 
     }
 
     h1 {
@@ -224,41 +224,3 @@ button:hover {
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        width: 100%;
-        padding: 5px;
-        max-height: 50vh; /* Further reduce height */
-    }
-
-    h1 {
-        font-size: 18px;
-    }
-
-    #chat-box {
-        font-size: 12px;
-        padding: 6px;
-    }
-
-    textarea {
-        font-size: 12px;
-        padding: 6px;
-    }
-
-    button {
-        padding: 6px 12px;
-        font-size: 12px;
-    }
-
-    #char-count {
-        font-size: 8px;
-    }
-
-    .message {
-        font-size: 12px;
-    }
-
-    .user-message, .ai-message {
-        font-size: 12px;
-    }
-}
