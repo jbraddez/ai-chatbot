@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90s Terminal Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Terminal Chatbot</h1>
+        <div id="chat-box">
+            <p>Enter a message to talk to the chatbot</p>
+        </div>
+        <textarea id="user-input" placeholder="Type your message..." oninput="updateCharacterCount()"></textarea>
+        <button onclick="sendMessage()">Send</button>
+        <div id="char-count">0/256</div>
+        <div id="error-message" style="display:none; color: red;">Message too long! Max 256 characters.</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
