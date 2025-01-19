@@ -6,8 +6,6 @@ const sanitizeString = (str) => {
               .replace(/\r/g, '\\r');   
 };
 
-const apiKey = process.env.API_KEY;
-const baseURL = "https://api.aimlapi.com/v1"; 
 
 const updateCharacterCount = () => {
     const userInput = document.getElementById('user-input').value.trim();
@@ -30,7 +28,6 @@ const sendMessage = async () => {
     const sanitizedUserInput = sanitizeString(userInput);
 
     const systemPrompt = "You are a friendly chatbot. Please respond naturally to user questions or conversations, and avoid focusing on technical explanations unless requested.";
-
     const combinedMessage = `${systemPrompt} ${sanitizedUserInput}`;
     if (combinedMessage.length > 256) {
         document.getElementById('error-message').style.display = 'block'; 
@@ -40,60 +37,39 @@ const sendMessage = async () => {
     document.getElementById('error-message').style.display = 'none';
 
     try {
-        const response = await fetch(baseURL + "/chat/completions", {
+        const response = await fetch('/api/chat', { // Sending request to the server-side API route
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
             },
-            body: JSON.stringify({
-                model: "mistralai/Mistral-7B-Instruct-v0.2",
-                messages: [
-                    {
-                        role: "system",
-                        content: systemPrompt
-                    },
-                    {
-                        role: "user",
-                        content: sanitizedUserInput
-                    }
-                ],
-                temperature: 0.7,
-                max_tokens: 256
-            })
+            body: JSON.stringify({ userInput: sanitizedUserInput })
         });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error response from API:", errorData);
-            alert("Error: " + (errorData.message || "Something went wrong"));
-            return;
-        }
 
         const data = await response.json();
 
-        if (data.choices && data.choices.length > 0) {
-            const aiResponse = data.choices[0].message.content;
-
-            const chatBox = document.getElementById("chat-box");
-            const userMessage = `<div class="message"><strong>User:</strong> ${userInput}</div>`;
-            chatBox.innerHTML += userMessage;
-
-            const aiMessage = `<div class="message"><strong>AI:</strong> <span class="typing-animation">...</span></div>`;
-            chatBox.innerHTML += aiMessage;
-            
-            setTimeout(() => {
-                const aiMessageElement = chatBox.lastElementChild;
-                aiMessageElement.innerHTML = `<strong>AI:</strong> ${aiResponse}`;
-                aiMessageElement.classList.add("message"); 
-            }, 1500);
-
-            document.getElementById('user-input').value = '';
-            updateCharacterCount(); 
-        } else {
-            console.error("No valid 'choices' found in response.");
-            alert("Error: No valid response from AI.");
+        if (!response.ok) {
+            console.error("Error response from API:", data);
+            alert("Error: " + (data.message || "Something went wrong"));
+            return;
         }
+
+        const aiResponse = data.aiResponse;
+
+        const chatBox = document.getElementById("chat-box");
+        const userMessage = `<div class="message"><strong>User:</strong> ${userInput}</div>`;
+        chatBox.innerHTML += userMessage;
+
+        const aiMessage = `<div class="message"><strong>AI:</strong> <span class="typing-animation">...</span></div>`;
+        chatBox.innerHTML += aiMessage;
+        
+        setTimeout(() => {
+            const aiMessageElement = chatBox.lastElementChild;
+            aiMessageElement.innerHTML = `<strong>AI:</strong> ${aiResponse}`;
+            aiMessageElement.classList.add("message"); 
+        }, 1500);
+
+        document.getElementById('user-input').value = '';
+        updateCharacterCount(); 
     } catch (error) {
         console.error("Error during API request:", error);
         alert("Error: Something went wrong while sending the request.");
