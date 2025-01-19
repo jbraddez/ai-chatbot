@@ -6,7 +6,7 @@ const sanitizeString = (str) => {
               .replace(/\r/g, '\\r');   
 };
 
-const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+const apiKey = process.env.API_KEY;
 const baseURL = "https://api.aimlapi.com/v1"; 
 
 const updateCharacterCount = () => {
