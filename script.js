@@ -20,7 +20,7 @@ const sendMessage = async () => {
     document.getElementById('error-message').style.display = 'none';
 
     try {
-        const response = await fetch("/pages/api/chat", { 
+        const response = await fetch("/pages/api/chat.js", { 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
