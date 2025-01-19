@@ -7,6 +7,8 @@ const sanitizeString = (str) => {
 };
 
 
+const baseURL = "https://api.aimlapi.com/v1"; 
+
 const updateCharacterCount = () => {
     const userInput = document.getElementById('user-input').value;
     const charCount = userInput.length;
