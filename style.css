@@ -226,27 +226,37 @@ button:hover {
 }
 
 @media screen and (max-height: 461px) {
-    .container{
-        height: max-content;
+    .container {
+        height: 100svh;
         max-height: 100svh;
         position: absolute;
         top: 0;
+        display: flex;
+        flex-direction: column;
     }
-    body{
+
+    body {
         overflow: scroll;
     }
-    div:not(#chat-box),p,textarea{
-        font-size: smaller;
-        margin: 3px;
-        padding: 1px;
-        min-height: 0;
+
+    #chat-box {
+        flex-grow: 1;
+        overflow-y: auto; 
+        display: flex;
+        flex-direction: column;
     }
-    h1{
-        font-size: smaller;
-        position: relative;
-        margin-bottom: 3px;
+
+    .message {
+        min-height: 30px;
+        margin: 5px 0;
     }
-    textarea{
-        padding: 3px;
+
+    textarea {
+        flex-shrink: 0;
+        min-height: 40px;
+    }
+
+    button {
+        flex-shrink: 0;
     }
 }

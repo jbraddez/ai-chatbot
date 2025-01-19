@@ -6,8 +6,6 @@ const sanitizeString = (str) => {
               .replace(/\r/g, '\\r');   
 };
 
-const apiKey = "3264e88eb4cf4d1a92bb7a6354b758d7"; 
-const baseURL = "https://api.aimlapi.com/v1"; 
 
 const updateCharacterCount = () => {
     const userInput = document.getElementById('user-input').value;
