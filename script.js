@@ -5,72 +5,41 @@ const sanitizeString = (str) => {
               .replace(/\n/g, '\\n')    
               .replace(/\r/g, '\\r');   
 };
-
-
-const baseURL = "https://api.aimlapi.com/v1"; 
-
-const updateCharacterCount = () => {
-    const userInput = document.getElementById('user-input').value;
-    const charCount = userInput.length;
-    const charCountElement = document.getElementById('char-count');
-
-    charCountElement.textContent = `${charCount}/256`;
-
-    if (charCount > 256) {
-        charCountElement.style.color = 'red';
-        document.getElementById('error-message').style.display = 'block'; 
-    } else {
-        charCountElement.style.color = '#555';
-        document.getElementById('error-message').style.display = 'none'; 
-    }
-};
-
-document.getElementById('user-input').addEventListener('input', updateCharacterCount);
-
 const sendMessage = async () => {
     const userInput = document.getElementById('user-input').value.trim();
 
-    if (!userInput) {  // Check if input is empty before sanitizing
-        return;
-    }
+    if (!userInput) return;
 
     const sanitizedUserInput = sanitizeString(userInput);
 
-    const systemPrompt = "You are a friendly chatbot. Please respond naturally to user questions or conversations, and avoid focusing on technical explanations unless requested.";
-
     if (sanitizedUserInput.length > 256) {
-        document.getElementById('error-message').style.display = 'block'; 
-        return; 
+        document.getElementById('error-message').style.display = 'block';
+        return;
     }
 
     document.getElementById('error-message').style.display = 'none';
 
     try {
-        const response = await fetch(baseURL + "/chat/completions", {
+        const response = await fetch("/api/chat", { // <---- CHANGED TO YOUR API ROUTE
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
-                model: "mistralai/Mistral-7B-Instruct-v0.2",
                 messages: [
-                    { role: "system", content: systemPrompt },
+                    { role: "system", content: "You are a friendly chatbot." },
                     { role: "user", content: sanitizedUserInput }
-                ],
-                temperature: 0.7,
-                max_tokens: 256
+                ]
             })
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error response from API:", errorData);
-            alert("Error: " + (errorData.message || "Something went wrong"));
+            console.error("Error from API:", data);
+            alert("Error: " + (data.message || "Something went wrong"));
             return;
         }
-
-        const data = await response.json();
 
         if (data.choices && data.choices.length > 0) {
             const aiResponse = data.choices[0].message.content;
@@ -89,20 +58,13 @@ const sendMessage = async () => {
             }, 1500);
 
             document.getElementById('user-input').value = '';
-            updateCharacterCount(); // Reset character count after sending message
+            updateCharacterCount();
         } else {
-            console.error("No valid 'choices' found in response.");
+            console.error("No valid response.");
             alert("Error: No valid response from AI.");
         }
     } catch (error) {
-        console.error("Error during API request:", error);
-        alert("Error: Something went wrong while sending the request.");
+        console.error("Request error:", error);
+        alert("Error: Failed to send request.");
     }
 };
-
-// Auto-expand textarea on input
-const textarea = document.getElementById('user-input');
-textarea.addEventListener('input', function () {
-    this.style.height = 'auto'; 
-    this.style.height = (this.scrollHeight) + 'px'; 
-});
